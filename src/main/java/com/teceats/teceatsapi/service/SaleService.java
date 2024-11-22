@@ -1,5 +1,6 @@
 package com.teceats.teceatsapi.service;
 
+import com.teceats.teceatsapi.model.Customer;
 import com.teceats.teceatsapi.model.Sale;
 import com.teceats.teceatsapi.repository.SaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,12 @@ public class SaleService {
             // Actualizar los campos necesarios
             existingSale.setFechaVenta(updatedSale.getFechaVenta());
             existingSale.setTotal(updatedSale.getTotal()); // Asegúrate de que el tipo de dato es compatible
-            existingSale.setIdCliente(updatedSale.getIdCliente());
+
+            // Actualizar el cliente relacionado
+            Customer updatedCustomer = updatedSale.getCliente();
+            if (updatedCustomer != null) {
+                existingSale.setCliente(updatedCustomer);
+            }
 
             // Guardar la venta actualizada en la base de datos
             return saleRepository.save(existingSale);

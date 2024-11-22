@@ -4,21 +4,24 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Approval")
+@Table(name = "approvals") // Cambié el nombre a plural para consistencia
 public class Approval {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "id_admin")
-    private Long idAdmin;
+    @ManyToOne
+    @JoinColumn(name = "id_admin", referencedColumnName = "id_admin")
+    private Administrator admin;
 
-    @Column(name = "id_restaurante")
-    private Long idRestaurante;
+    @ManyToOne
+    @JoinColumn(name = "id_restaurante", referencedColumnName = "id_restaurante")
+    private Restaurant restaurant;
 
-    @Column(name = "id_accion")
-    private Long idAccion;
+    @ManyToOne
+    @JoinColumn(name = "id_accion", referencedColumnName = "id_accion")
+    private ActionType actionType;
 
     @Column(name = "fecha_accion", nullable = false)
     private LocalDateTime fechaAccion;
@@ -28,9 +31,10 @@ public class Approval {
 
     // Constructor por defecto
     public Approval() {
+        this.fechaAccion = LocalDateTime.now();
     }
 
-    // Getters y setters
+    // Getters y Setters
     public Long getId() {
         return id;
     }
@@ -39,28 +43,28 @@ public class Approval {
         this.id = id;
     }
 
-    public Long getIdAdmin() {
-        return idAdmin;
+    public Administrator getAdmin() {
+        return admin;
     }
 
-    public void setIdAdmin(Long idAdmin) {
-        this.idAdmin = idAdmin;
+    public void setAdmin(Administrator admin) {
+        this.admin = admin;
     }
 
-    public Long getIdRestaurante() {
-        return idRestaurante;
+    public Restaurant getRestaurant() {
+        return restaurant;
     }
 
-    public void setIdRestaurante(Long idRestaurante) {
-        this.idRestaurante = idRestaurante;
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
-    public Long getIdAccion() {
-        return idAccion;
+    public ActionType getActionType() {
+        return actionType;
     }
 
-    public void setIdAccion(Long idAccion) {
-        this.idAccion = idAccion;
+    public void setActionType(ActionType actionType) {
+        this.actionType = actionType;
     }
 
     public LocalDateTime getFechaAccion() {

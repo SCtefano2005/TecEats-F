@@ -12,7 +12,8 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id_cliente") // Ajuste para coincidir con el nombre de la columna en la base de datos
+    private Long idCliente;
 
     @NotNull(message = "El nombre no puede ser nulo")
     @Size(min = 2, message = "El nombre debe tener al menos 2 caracteres")
@@ -30,16 +31,20 @@ public class Customer {
 
     // Constructor por defecto
     public Customer() {
+    }
+
+    @PrePersist
+    protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
 
     // Getters y Setters
-    public Long getId() {
-        return id;
+    public Long getIdCliente() {
+        return idCliente;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdCliente(Long idCliente) {
+        this.idCliente = idCliente;
     }
 
     public String getNombre() {

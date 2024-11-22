@@ -1,21 +1,19 @@
 package com.teceats.teceatsapi.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import java.time.LocalDateTime;
-
 
 @Entity
-@Table(name = "action_type")
+@Table(name = "action_types") // Cambiado a plural y minúsculas para consistencia
 public class ActionType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_accion") // Ajuste para ser consistente con el esquema de la base de datos
     private Long id;
 
     @NotNull(message = "El nombre de la acción no puede ser nulo")
+    @Column(name = "nombre_accion", nullable = false) // Anotación @Column añadida para mapeo explícito
     private String nombreAccion;
 
     // Constructor por defecto

@@ -5,17 +5,17 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Restaurant") // Nombre de la tabla ajustado para coincidir con la base de datos
+@Table(name = "restaurant") // Cambiado a minúsculas para consistencia
 public class Restaurant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_restaurante") // Ajustado para coincidir con el nombre de la columna en la base de datos
+    @Column(name = "id_restaurante") // Ajuste del nombre de la columna
     private Long idRestaurante;
 
-    @NotNull(message = "El id del dueño no puede ser nulo")
+    @NotNull(message = "El dueño del restaurante no puede ser nulo")
     @ManyToOne
-    @JoinColumn(name = "id_owner", referencedColumnName = "id_owner", nullable = false)
+    @JoinColumn(name = "id_owner", referencedColumnName = "id_owner", nullable = false) // Ajuste del nombre de columna y referencia
     private RestaurantOwner owner;
 
     @NotNull(message = "El nombre del restaurante no puede ser nulo")
@@ -38,6 +38,10 @@ public class Restaurant {
 
     // Constructor por defecto
     public Restaurant() {
+    }
+
+    @PrePersist
+    protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
 

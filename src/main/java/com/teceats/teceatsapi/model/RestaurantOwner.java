@@ -7,41 +7,44 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "RestaurantOwner") // Nombre de la tabla ajustado para coincidir con la base de datos
+@Table(name = "restaurant_owner") // Consistente con la base de datos
 public class RestaurantOwner {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_owner") // Ajustado para coincidir con el nombre de la columna en la base de datos
-    private Long idOwner;
+    @Column(name = "id_owner") // Cambiado para coincidir con la referencia en Restaurant
+    private long idOwner;
 
-    @NotNull(message = "El nombre no puede ser nulo")
+    @NotNull(message = "El nombre del dueño del restaurante no puede ser nulo")
     @Size(min = 2, message = "El nombre debe tener al menos 2 caracteres")
-    @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @NotNull(message = "El correo no puede ser nulo")
+    @NotNull(message = "El correo del dueño no puede ser nulo")
     @Email(message = "El correo debe tener un formato válido")
-    @Column(name = "email", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private String email;
+
+    @NotNull(message = "El teléfono no puede ser nulo")
+    private String telefono;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "telefono")
-    private String telefono;
-
     // Constructor por defecto
     public RestaurantOwner() {
+    }
+
+    @PrePersist
+    protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
 
     // Getters y Setters
-    public Long getIdOwner() {
+    public long getIdOwner() {
         return idOwner;
     }
 
-    public void setIdOwner(Long idOwner) {
+    public void setIdOwner(long idOwner) {
         this.idOwner = idOwner;
     }
 
@@ -61,19 +64,19 @@ public class RestaurantOwner {
         this.email = email;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public String getTelefono() {
         return telefono;
     }
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

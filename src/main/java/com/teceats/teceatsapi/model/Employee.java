@@ -7,34 +7,39 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "employee")
+@Table(name = "employee") // Nombre de la tabla en la base de datos
 public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_empleado") // Ajustado para coincidir con el nombre de la columna en la base de datos
     private Long id;
 
-    @NotNull(message = "El id del restaurante no puede ser nulo")
+    @NotNull(message = "El restaurante no puede ser nulo")
     @ManyToOne
-    @JoinColumn(name = "id_restaurante", nullable = false)
+    @JoinColumn(name = "id_restaurante", referencedColumnName = "id_restaurante", nullable = false)
     private Restaurant restaurant;
 
     @NotNull(message = "El nombre del empleado no puede ser nulo")
+    @Size(min = 2, message = "El nombre del empleado debe tener al menos 2 caracteres")
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
     @NotNull(message = "El correo del empleado no puede ser nulo")
     @Email(message = "El correo debe tener un formato válido")
-    @Column(unique = true, nullable = false)
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @NotNull(message = "El id del cargo no puede ser nulo")
+    @NotNull(message = "El cargo del empleado no puede ser nulo")
     @ManyToOne
-    @JoinColumn(name = "id_cargo", nullable = false)
+    @JoinColumn(name = "id_cargo", referencedColumnName = "id_cargo", nullable = false)
     private JobPosition cargo;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
+    @Size(max = 20, message = "El teléfono no debe exceder los 20 caracteres")
+    @Column(name = "telefono")
     private String telefono;
 
     // Constructor por defecto

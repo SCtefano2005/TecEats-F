@@ -3,7 +3,6 @@ package com.teceats.teceatsapi.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,9 +11,11 @@ public class DeliveryPerson {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id_repartidor") // Ajuste del nombre de la columna para coincidir con la base de datos
+    private Long idRepartidor;
 
     @NotNull(message = "El nombre del repartidor no puede ser nulo")
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
     @NotNull(message = "El correo del repartidor no puede ser nulo")
@@ -23,6 +24,7 @@ public class DeliveryPerson {
     private String email;
 
     @NotNull(message = "El teléfono del repartidor no puede ser nulo")
+    @Column(name = "telefono", nullable = false)
     private String telefono;
 
     @Column(name = "created_at", nullable = false)
@@ -30,16 +32,20 @@ public class DeliveryPerson {
 
     // Constructor por defecto
     public DeliveryPerson() {
+    }
+
+    @PrePersist
+    protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
 
     // Getters y Setters
-    public Long getId() {
-        return id;
+    public Long getIdRepartidor() {
+        return idRepartidor;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdRepartidor(Long idRepartidor) {
+        this.idRepartidor = idRepartidor;
     }
 
     public String getNombre() {

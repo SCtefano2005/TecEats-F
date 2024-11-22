@@ -1,33 +1,33 @@
 package com.teceats.teceatsapi.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "order")
+@Table(name = "orders") // Cambié a "orders" para evitar conflictos con palabras reservadas
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_pedido")
     private Long id;
 
     @NotNull(message = "El id de la venta no puede ser nulo")
     @OneToOne
-    @JoinColumn(name = "id_venta", nullable = false)
+    @JoinColumn(name = "id_venta", referencedColumnName = "id_venta", nullable = false)
     private Sale venta;
 
-    @NotNull(message = "El id del repartidor no puede ser nulo")
     @ManyToOne
-    @JoinColumn(name = "id_repartidor", nullable = false)
+    @JoinColumn(name = "id_repartidor", referencedColumnName = "id_repartidor")
     private DeliveryPerson repartidor;
 
     @NotNull(message = "El estado del pedido no puede ser nulo")
+    @Column(name = "estado", nullable = false)
     private String estado;
 
     @NotNull(message = "La dirección de entrega no puede ser nula")
+    @Column(name = "direccion_entrega", nullable = false)
     private String direccionEntrega;
 
     @Column(name = "created_at", nullable = false)
@@ -87,4 +87,3 @@ public class Order {
         this.createdAt = createdAt;
     }
 }
-

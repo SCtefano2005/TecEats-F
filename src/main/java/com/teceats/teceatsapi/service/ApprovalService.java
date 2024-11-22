@@ -36,9 +36,9 @@ public class ApprovalService {
             Approval existingApproval = existingApprovalOpt.get();
 
             // Actualiza los campos del objeto Approval existente con los datos del objeto actualizado.
-            existingApproval.setIdAdmin(updatedApproval.getIdAdmin());
-            existingApproval.setIdRestaurante(updatedApproval.getIdRestaurante());
-            existingApproval.setIdAccion(updatedApproval.getIdAccion());
+            existingApproval.setAdmin(updatedApproval.getAdmin());
+            existingApproval.setRestaurant(updatedApproval.getRestaurant());
+            existingApproval.setActionType(updatedApproval.getActionType());
             existingApproval.setFechaAccion(updatedApproval.getFechaAccion());
             existingApproval.setObservaciones(updatedApproval.getObservaciones());
 

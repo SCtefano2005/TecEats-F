@@ -7,12 +7,12 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Administrator") // Asegúrate de que coincida con el nombre de la tabla en la base de datos
+@Table(name = "administrators") // Cambiado a plural y minúsculas para consistencia y evitar problemas
 public class Administrator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_admin") // Para coincidir con el campo de la base de datos
+    @Column(name = "id_admin") // Mapeo explícito para coincidir con el campo en la base de datos
     private Long idAdmin;
 
     @NotNull(message = "El nombre no puede ser nulo")
